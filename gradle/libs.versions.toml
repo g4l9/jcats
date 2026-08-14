@@ -1,0 +1,14 @@
+[versions]
+jmh = "1.37"
+jmh-plugin = "0.7.3"
+
+[libraries]
+jmh-core = { module = "org.openjdk.jmh:jmh-core", version.ref = "jmh" }
+jmh-generator-annprocess = { module = "org.openjdk.jmh:jmh-generator-annprocess", version.ref = "jmh" }
+jmh-generator-bytecode = { module = "org.openjdk.jmh:jmh-generator-bytecode", version.ref = "jmh" }
+
+[bundles]
+jmh = ["jmh-core", "jmh-generator-annprocess", "jmh-generator-bytecode"]
+
+[plugins]
+jmh = { id = "me.champeau.jmh", version.ref = "jmh-plugin" }
