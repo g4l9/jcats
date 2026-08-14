@@ -16,10 +16,10 @@ public final class Match<T, R> {
 
     private final boolean done;
 
-    Match(final T in, final R out) {
+    Match(final T in, final R out, final boolean done) {
         this.in = in;
         this.out = out;
-        this.done = false;
+        this.done = done;
     }
 
     Match(final T in, final R out, final T case_) {
@@ -61,7 +61,7 @@ public final class Match<T, R> {
         if (case_.test(in)) {
             throw out.get();
         }
-        this(in, null);
+        this(in, null, false);
     }
 
     public Match<T, R> when(final T case_, final R out) {
@@ -131,8 +131,8 @@ public final class Match<T, R> {
         return new Partial<>(exceptionally(defaultValue));
     }
 
-    public <T2> Match<T2, R> pattern(final T2 value) {
-        return new Match<>(value, out);
+    public <T2> Match<T2, R> match(final T2 value) {
+        return new Match<>(value, out, done);
     }
 
     public Optional<R> toOption() {

@@ -13,7 +13,7 @@ public final class LazyMatch<T> {
     }
 
     public <R> Match<T, R> when(final T case_, final R out) {
-        return new Match<>(case_, out);
+        return new Match<>(in, out, case_);
     }
 
     public <R> Match<T, R> when(final T case_, final Supplier<R> out) {
