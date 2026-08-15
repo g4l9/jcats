@@ -3,28 +3,29 @@ package jcats.match;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @State(Scope.Benchmark)
-@BenchmarkMode(Mode.All)
+@BenchmarkMode(Mode.Throughput)
 public class PatternMatchingBenchmark {
 
-    private static final int[][] VALUES = {
-            {2, 3},
-            {4, 5},
-            {6, 7}
-    };
+    private int lhs;
+    private int rhs;
 
-    @Param({"0", "1", "2"})
-    public int idx;
+    @Setup(Level.Trial)
+    public void setUp() {
+        final var random = ThreadLocalRandom.current();
+        this.lhs = random.nextInt();
+        this.rhs = random.nextInt();
+    }
 
     @Benchmark
     public void imperative(Blackhole bh) {
-        int[] v = VALUES[idx];
-        bh.consume(PatternMatchingHelper.imperative(v[0], v[1]));
+        bh.consume(PatternMatchingHelper.imperative(lhs, rhs));
     }
 
     @Benchmark
     public void functional(Blackhole bh) {
-        int[] v = VALUES[idx];
-        bh.consume(PatternMatchingHelper.functional(v[0], v[1]));
+        bh.consume(PatternMatchingHelper.functional(lhs, rhs));
     }
 }

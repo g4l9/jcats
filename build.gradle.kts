@@ -27,9 +27,5 @@ jmh {
     warmupIterations = 5
     iterations = 5
     fork = 1
-/*    jvmArgs = listOf(
-        "-XX:+UnlockDiagnosticVMOptions",
-        "-XX:+PrintAssembly",
-        "-XX:CompileCommand=print,*PatternMatchingHelper.*"
-    )*/
+    profilers = listOf("perfasm")
 }
