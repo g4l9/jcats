@@ -106,10 +106,6 @@ public final class HOF {
         return set::contains;
     }
 
-    public static <T> Predicate<T> type(final Class<? extends T> t) {
-        return HOF.<T>nonNull().and(i -> i.getClass().equals(t));
-    }
-
     private HOF() {
         throw new AssertionError();
     }
