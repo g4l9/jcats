@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class HOF {
@@ -52,6 +54,10 @@ public final class HOF {
 
     public static <T1, T2, T3, T4, T5, T6> Predicate<Tuple6<T1, T2, T3, T4, T5, T6>> on(final Predicate<T1> t1, final Predicate<T2> t2, final Predicate<T3> t3, final Predicate<T4> t4, final Predicate<T5> t5, final Predicate<T6> t6) {
         return tuple -> t1.test(tuple.t1()) && t2.test(tuple.t2()) && t3.test(tuple.t3()) && t4.test(tuple.t4()) && t5.test(tuple.t5()) && t6.test(tuple.t6());
+    }
+
+    public static <T1, T2, R> Function<T1, Function<T2, R>> currying(final BiFunction<T1, T2, R> bf) {
+        return t1 -> t2 -> bf.apply(t1, t2);
     }
 
     public static Predicate<String> isStringEmpty() {
