@@ -4,6 +4,8 @@ import jcats.tuple.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -118,5 +120,19 @@ class HOFTest {
         assertTrue(in.test(3));
         assertFalse(in.test(4));
         assertFalse(in.test(-1));
+    }
+
+    @Test
+    void currying() {
+        final BiFunction<String, Integer, Integer> function = (lhs, rhs) -> Integer.parseInt(lhs) + rhs;
+        final var currying = HOF.currying(function);
+        assertEquals(7, currying.apply("3").apply(4));
+    }
+
+    @Test
+    void uncurrying() {
+        final Function<String, Function<Integer, Integer>> function = lhs -> rhs -> Integer.parseInt(lhs) + rhs;
+        final var uncurrying = HOF.uncurrying(function);
+        assertEquals(7, uncurrying.apply("4", 3));
     }
 }
