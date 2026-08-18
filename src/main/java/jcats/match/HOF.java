@@ -60,6 +60,10 @@ public final class HOF {
         return t1 -> t2 -> bf.apply(t1, t2);
     }
 
+    public static <T1, T2, R> BiFunction<T1, T2, R> uncurrying(final Function<T1, Function<T2, R>> bf) {
+        return (t1, t2) -> bf.apply(t1).apply(t2);
+    }
+
     public static Predicate<String> isStringEmpty() {
         return s -> s == null || s.isEmpty();
     }
