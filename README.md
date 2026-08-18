@@ -1,6 +1,6 @@
 # jcats
 
-This project contains PoC FP concepts implemented in Java
+PoC FP concepts implemented in Java
 
 ## Tuples
 
