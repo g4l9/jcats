@@ -5,16 +5,36 @@ PoC FP concepts implemented in Java
 ## Tuples
 
 ```java
-// make tuple
-final Tuple2<String, Integer> tuple2 = Tuple2.of("test", 42);
+import jcats.tuple.Tuple2;
 
-// swap values
-final Tuple2<Integer, String> tuple2Swap = tuple2.swap();
+import java.util.Map;
 
-// tuple from entry
-final Map<String, Integer> map = Map.of("test", 42);
-final Map.Entry<String, Integer> entry = map.entrySet().iterator().next();
-final Tuple2<String, Integer> tuple2From = Tuple2.from(entry);
+import static jcats.match.HOF.is;
+import static jcats.tuple.Tuple2.toMapTuple2;
+import static jcats.tuple.Tuple2.when2;
+
+public class Test {
+    void test() {
+        // make tuple
+        final Tuple2<String, Integer> tuple2 = Tuple2.of("test", 42);
+
+        // swap values
+        final Tuple2<Integer, String> tuple2Swap = tuple2.swap();
+
+        // tuple from entry
+        final Map<String, Integer> map = Map.of("test", 42);
+        final Map.Entry<String, Integer> entry = map.entrySet().iterator().next();
+        final Tuple2<String, Integer> tuple2From = Tuple2.from(entry);
+        
+        // filter and collect 
+        map.entrySet()
+                .stream()
+                .map(Tuple2::from)
+                .filter(when2(is(42)))
+                .collect(toMapTuple2());
+    }
+}
+
 ```
 
 ## Currying
